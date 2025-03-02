@@ -1,10 +1,7 @@
 # Parques-UN
 Integrantes del equipo:
-
 Natalia Isabel Mendez Molina, 
-
 Nicolas Cortes Ostos,
-
 Laura Mariana Valencia Gomez.
 
 Instrucciones 
