@@ -1,7 +1,8 @@
 # Parques-UN
-Integrantes:Natalia Isabel Mendez Molina
-            Nicolas Cortes Ostos
-            Laura Mariana Valencia Gomez 
+Integrantes:
+Natalia Isabel Mendez Molina
+Nicolas Cortes Ostos
+Laura Mariana Valencia Gomez 
 
 Instrucciones 
 1) Al ejecutar el archivo .py, aparecerá el tablero junto con un menú con dos opciones:
