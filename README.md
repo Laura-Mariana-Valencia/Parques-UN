@@ -6,16 +6,14 @@ Laura Mariana Valencia Gomez.
 
 Instrucciones 
 
-1) Al ejecutar el archivo .py, aparecerá el tablero junto con un menú con dos opciones:
-N - Modo real
-D - Modo desarrollador
+1) Al ejecutar el archivo .py, aparecerá el tablero junto con un menú con dos opciones: Modo real y modo desarrollador.
 2) Se debe ingresar en el teclado la letra correspondiente al modo en el que se desea jugar.
 
 Modo Real
 
 Este modo consiste en un tablero de parqués con 4 equipos (rojo, verde, azul y amarillo) y dos dados que generan valores aleatorios entre 1 y 6 en cada lanzamiento.
 
-El juego imprimirá en la consola las opciones de lanzamiento y movimiento, permitiendo al jugador elegir qué ficha mover y distribuir la suma de los dados entre las fichas disponibles.
+Se imprimira tanto en la pantalla de juego como en la consola el resultado de la acción del jugador en cada turno, luego de cada lanzamiento de dados se permite al jugador elegir qué ficha mover y distribuir la suma de los dados entre las fichas disponibles.
 
 Cada cambio de turno se realiza presionando la tecla espacio.
 
