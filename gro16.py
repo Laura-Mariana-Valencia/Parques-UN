@@ -1,4 +1,3 @@
-from collections import defaultdict
 import random
 import pygame
 
@@ -130,7 +129,12 @@ colores_fichas = {
 }
 
 def mostrar_texto(mensajes, espera=True):
-    """Muestra texto en el centro-derecha de la pantalla con fondo blanco y formato vertical.
+    """
+    Parámetros:
+    mensajes: Lista de strings para mostrar en formato vertical.
+    espera=True: Boleano, cuando es True la función pausa la ejecuación hasta que se presione la tecla espacio.
+    
+    La función muestra texto en el centro-derecha de la pantalla con fondo blanco y formato vertical.
     Si espera es True, pausa hasta que el usuario interactúe.
     """
     cuadro_x = scaled_width - 160
@@ -156,7 +160,8 @@ def mostrar_texto(mensajes, espera=True):
 
 #Salección del modo de juego
 def menu_inicial():
-    """Muestra el menú inicial y permite seleccionar el modo de juego.
+    """
+    Muestra el menú inicial y permite seleccionar el modo de juego.
     Retorna False para modo normal y True para modo desarrollador.
     """
     screen.blit(tablero_img, (0, 0))
@@ -179,7 +184,8 @@ modo_desarrollador = menu_inicial()
 
 #Seleción de los valores de los dados en modo desarrollador
 def ingresar_valores_manuales():
-    """Permite al usuario ingresar manualmente los valores de los dados en modo desarrollador.
+    """
+    Permite al usuario ingresar manualmente los valores de los dados en modo desarrollador.
     Retorna una tupla con los valores de los dos dados (entre 1 y 6).
     """
     screen.blit(tablero_img, (0, 0))
@@ -214,7 +220,8 @@ def ingresar_valores_manuales():
 
 #Se dibujan las fichas con un número sobre ellas 
 def dibujar_fichas():
-    """Dibuja las fichas en el tablero según sus posiciones actuales.
+    """
+    Dibuja las fichas en el tablero según sus posiciones actuales.
     Ajusta la posición visual si hay más de una ficha en la misma casilla.
     """
     posiciones_ocupadas = {}
@@ -248,14 +255,22 @@ def dibujar_fichas():
 
 #Lanzamiento de dados
 def lanzar_dados():
-    """Genera valores aleatorios para los dos dados.
+    """
+    Genera valores aleatorios para los dos dados.
     Retorna una tupla con los valores de los dados (entre 1 y 6).
     """
     return random.randint(1, 6), random.randint(1, 6)
 
 # Movimiento de la ficha
 def mover_ficha(color, ficha_index, pasos, es_adicional=False):
-    """Mueve una ficha del jugador según el número de pasos indicado.
+    """
+    Parámetros:
+    color: Color del equipo que mueve la ficha.
+    ficha_index: Índice de la ficha dentro de la lista de fichas.
+    pasos: Número de posiciones que la ficha debe avanzar
+    es_adicional=False: Indica si el movimiento es parte de movimientos adicionales (captura o llegada).
+    
+    Mueve una ficha del jugador según el número de pasos indicado.
     Retorna True si el movimiento se realizó, False si no fue posible.
     """
     global movimientos_adicionales, ultima_ficha_movida, running
@@ -330,7 +345,11 @@ def mover_ficha(color, ficha_index, pasos, es_adicional=False):
 
 # Regla 1: Sacar ficha de la cárcel con un 5
 def sacar_ficha_de_carcel(color):
-    """Saca una ficha de la cárcel si hay menos de 2 en la salida.
+    """
+    Parámetros:
+    color: Color del equipo que intenta sacar una ficha.
+    
+    Saca una ficha de la cárcel si hay menos de 2 en la salida.
     Retorna True si se sacó una ficha, False si no.
     """
     fichas_en_salida = sum(1 for pos in fichas[color] if pos == salidas[color])
@@ -360,7 +379,12 @@ def sacar_ficha_de_carcel(color):
 
 #Regla 2: Capturar fichas en salida
 def verificar_captura(color, ficha_index):
-    """Verifica si una ficha puede capturar otra en una salida enemiga.
+    """
+    Parámetros:
+    color: Color del equipo al que pertenece la ficha.
+    ficha_index: Indice de la ficha dentro de la lista de fichas.
+    
+    Verifica si una ficha puede capturar a otra en una salida enemiga.
     Retorna True si hay captura posible, False si no.
     """
     pos_actual = fichas[color][ficha_index]
@@ -375,7 +399,12 @@ def verificar_captura(color, ficha_index):
 
 #Captura de fichas enemigas
 def capturar_ficha(color, ficha_index):
-    """Captura una ficha enemiga y la envía a la cárcel.
+    """
+    Parámetros:
+    color: Color del equipo al que pertenece la ficha.
+    ficha_index: Indice de la ficha dentro de la lista de fichas.
+    
+    Captura una ficha enemiga y la envía a la cárcel.
     Actualiza los movimientos adicionales del equipo que captura.
     """
     global movimientos_adicionales
@@ -390,7 +419,11 @@ def capturar_ficha(color, ficha_index):
 
 #Manejar capturas cuando una ficha sale de la carcel
 def manejar_fichas_en_salida(color):
-    """Maneja el caso de dos fichas en la salida del equipo.
+    """
+    Parámetros:
+    color: Color del equipo al que pertenece la ficha.
+    
+    Maneja el caso de dos fichas en la salida del equipo.
     Realiza captura si hay ficha enemiga o muestra mensaje de bloqueo.
     """
     fichas_en_salida = [(ficha_index, pos) for ficha_index, pos in enumerate(fichas[color]) if pos == salidas[color]]
@@ -408,7 +441,12 @@ def manejar_fichas_en_salida(color):
 
 # Regla 3: No se puede mover una ficha si hay un bloqueo en el camino del mismo equipo (a)
 def verificar_bloqueo_y_captura(color, nueva_pos):
-    """Verifica si hay bloqueo o captura en una casilla.
+    """
+    Parámetros:
+    color: Color del equipo al que pertenece la ficha.
+    nueva_pos: Nueva posición de la ficha en el tablero.
+    
+    Verifica si hay bloqueo o captura en una casilla.
     Retorna un mensaje describiendo el resultado (bloqueo o captura).
     """
     fichas_en_casilla = [(equipo, ficha_index) for equipo, fichas_equipo in fichas.items() for ficha_index, pos in enumerate(fichas_equipo) if pos == nueva_pos]
@@ -452,7 +490,11 @@ def verificar_bloqueo_y_captura(color, nueva_pos):
 
 #Verificación de captura o bloqueo (a-b)
 def verificar_bloqueo_en_casilla(casilla):
-    """Verifica si una casilla tiene un bloqueo (2 o más fichas), excluyendo llegadas.
+    """
+    Parámetros:
+    casilla: posición en el tablero que se va verificar
+    
+    Verifica si una casilla tiene un bloqueo (2 o más fichas), excluyendo llegadas.
     Retorna True si hay bloqueo, False si no o si es una casilla de llegada.
     """
     if casilla in llegadas.values():
@@ -460,7 +502,13 @@ def verificar_bloqueo_en_casilla(casilla):
     return sum(1 for equipo in fichas.values() for pos in equipo if pos == casilla) >= 2
 
 def hay_bloqueo_en_camino(color, indice_actual, pasos):
-    """Verifica si hay un bloqueo en el camino de una ficha, excluyendo la meta.
+    """
+    Parámetros:
+    color: Color del equipo al que pertenece la ficha.
+    indice_actual: indice actual de la ficha en el camino que corresponde.
+    pasos: Número de las fichas que intenta avanzar.
+    
+    Verifica si hay un bloqueo en el camino de una ficha, excluyendo la meta.
     Retorna el índice justo antes del bloqueo si existe, o None si no hay bloqueo.
     """
     camino = caminos[color]
