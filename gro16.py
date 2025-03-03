@@ -519,7 +519,13 @@ def hay_bloqueo_en_camino(color, indice_actual, pasos):
 
 #Regla 5: Número exacto de movimientos para llegar a la meta
 def verificar_movimiento_llegada(color, nuevo_indice, pasos):
-    """Verifica si el movimiento a la meta es exacto.
+    """
+    Parámetros:
+    color: Color del equipo al que pertenece la ficha.
+    nuevo_indice: índice de la casilla a la que se intent mover la ficha.
+    pasos: Número de posiciones que la ficha intenta avanzar.
+    
+    Verifica si el movimiento a la meta es exacto.
     Retorna True si el movimiento es válido, False si no.
     """
     llegada = llegadas[color]
@@ -529,7 +535,12 @@ def verificar_movimiento_llegada(color, nuevo_indice, pasos):
 
 #Regla 6: Si no hay movimientos posibles el turno pasa
 def convertir_tupla_a_indice(pos, color):
-    """Convierte una posición en coordenadas a un índice en el camino.
+    """
+    Parámetros:
+    pos: Coordenadas de la posición a buscar.
+    color: Color del equipo al que pertenece la ficha.
+    
+    Convierte una posición en coordenadas a un índice en el camino.
     Retorna el índice en el camino o -1 si no se encuentra.
     """
     for i, camino_pos in enumerate(caminos[color]):
@@ -537,9 +548,14 @@ def convertir_tupla_a_indice(pos, color):
             return i
     return -1
 
-
 def hay_movimientos_posibles(color, dado1, dado2):
-    """Verifica si hay movimientos posibles para un equipo con los dados actuales.
+    """
+    Parámetros:
+    color: Color del equipo al que pertenece la ficha.
+    dado1: Valor del primer dado.
+    dado2: Valor del segundo dado.
+    
+    Verifica si hay movimientos posibles para un equipo con los dados actuales.
     Retorna True si hay movimientos posibles, False si no.
     """
     if dado1 == 5 or dado2 == 5 or dado1 + dado2 == 5:
@@ -559,7 +575,12 @@ def hay_movimientos_posibles(color, dado1, dado2):
 # Regla 7: 20 movimientos adicionales al capturar una ficha
 # Regla 8: 10 movimientos adicionales al llegar a la meta
 def ejecutar_movimientos_adicionales_inmediatos(color, cantidad):
-    """Ejecuta movimientos adicionales de una vez para una ficha seleccionada.
+    """
+    Parámetros:
+    color: Color del equipo al que pertenece la ficha.
+    cantidad: Cantidad de movimientos adicionales(10 o 20).
+    
+    Ejecuta movimientos adicionales de una vez para una ficha seleccionada.
     Usa la cantidad especificada de movimientos (10 o 20).
     """
     global movimientos_adicionales, running
@@ -588,7 +609,11 @@ def ejecutar_movimientos_adicionales_inmediatos(color, cantidad):
 
 # Regla 9: Movimientos adicionales deben ser usados inmediatamente
 def manejar_movimientos_adicionales(color):
-    """Maneja los movimientos adicionales acumulados para un equipo.
+    """
+    Parámetros:
+    color: color del equipo al que pertenece la ficha.
+    
+    Maneja los movimientos adicionales acumulados para un equipo.
     Retorna True si se usaron los movimientos, False si se perdieron.
     """
     global movimientos_adicionales
@@ -625,14 +650,23 @@ def manejar_movimientos_adicionales(color):
 
 # Regla 10: Dados iguales permiten repetir turno
 def verificar_dados_iguales(dado1, dado2):
-    """Verifica si los valores de los dados son iguales.
+    """
+    Parámetros:
+    dado1: Valor del primer dado.
+    dado2: Valor del segundo dado.
+    
+    Verifica si los valores de los dados son iguales.
     Retorna True si son iguales, False si no.
     """
     return dado1 == dado2
 
 # Regla 11: Tres pares consecutivos devuelven la última ficha a la cárcel
 def manejar_tres_pares_consecutivos(color):
-    """Maneja la regla de tres pares consecutivos.
+    """
+    Parámetros:
+    color: Color del equipo al que pertenece la ficha.
+    
+    Maneja la regla de tres pares consecutivos.
     Envía la última ficha movida a la cárcel si aplica.
     """
     global pares_consecutivos, ultima_ficha_movida
@@ -646,13 +680,22 @@ def manejar_tres_pares_consecutivos(color):
         pares_consecutivos = 0
 
 def mostrar_fichas_disponibles(color):
-    """Muestra las fichas disponibles para mover de un equipo.
+    """
+    Parámetros:
+    color: Color de del equipo al que pertenece la ficha.
+    
+    Muestra las fichas disponibles para mover de un equipo.
     Retorna una lista de índices de fichas fuera de la cárcel.
     """
     return [i for i, pos in enumerate(fichas[color]) if pos not in carceles[color]]
 
 def seleccionar_ficha(color, fichas_disponibles):
-    """Permite al usuario seleccionar una ficha de las disponibles.
+    """
+    Parámtros:
+    Color: Color del equipo al que pertenece la ficha.
+    fichas_disponibles: Lista de los indices de las fichas que se pueden mover.
+    
+    Permite al usuario seleccionar una ficha de las disponibles.
     Retorna el índice de la ficha seleccionada o None si no hay selección válida.
     """
     cuadro_x = scaled_width - 160
@@ -684,7 +727,12 @@ def seleccionar_ficha(color, fichas_disponibles):
     return seleccion
 
 def seleccionar_dado(dado1, dado2):
-    """Permite al usuario seleccionar qué valor de dado usar.
+    """
+    Parámetros:
+    dado1: Valor del primer dado.
+    dado2: Valor del segundo dado
+    
+    Permite al usuario seleccionar qué valor de dado usar.
     Retorna el valor seleccionado (dado1, dado2 o suma).
     """
     global color
@@ -718,7 +766,13 @@ def seleccionar_dado(dado1, dado2):
     return seleccion
 
 def mover_automaticamente(color, dado1, dado2):
-    """Mueve automáticamente una ficha si solo hay una opción posible.
+    """
+    Parámetros:
+    color: Color del equipo al que pertenece la ficha
+    dado1: Valor del primer dado.
+    dado2: Valor del segundo dado.
+    
+    Mueve automáticamente una ficha si solo hay una opción posible.
     Retorna True si se realizó un movimiento automático, False si no.
     """
     fichas_disponibles = mostrar_fichas_disponibles(color)
